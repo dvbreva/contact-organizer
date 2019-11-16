@@ -13,10 +13,10 @@
         android:id="@+id/buttonAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
         android:layout_margin="15dp"
+        android:background="#ffffff"
         android:text="Add New Contact"
-        android:textColor="#ffffff"
+        android:textColor="@color/colorPrimary"
         android:textStyle="bold" />
 
     <ListView
