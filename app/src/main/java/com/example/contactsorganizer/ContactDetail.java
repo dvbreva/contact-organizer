@@ -59,8 +59,8 @@ public class ContactDetail extends AppCompatActivity {
             public void onClick(View v) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setCancelable(false);
-                builder.setTitle("Confirm");
-                builder.setMessage("Are you sure?");
+                builder.setTitle("Confirm deletion");
+                builder.setMessage("Are you sure you want to delete this contact?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -85,7 +85,7 @@ public class ContactDetail extends AppCompatActivity {
                     }
                 });
 
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("Go Back", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
