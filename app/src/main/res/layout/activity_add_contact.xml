@@ -34,8 +34,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:text="Name"
-        android:textSize="24sp"
-        android:textColor="#513167"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="21sp"
         android:textStyle="bold" />
 
     <EditText
@@ -43,8 +43,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Name"
         android:inputType="textPersonName"
-        android:hint="Name" />
+        android:textColorLink="@color/fieldLink" />
 
     <TextView
         android:id="@+id/textViewPhone"
@@ -52,8 +53,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:text="Phone"
-        android:textColor="#513167"
-        android:textSize="24sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="21sp"
         android:textStyle="bold" />
 
     <EditText
@@ -61,8 +62,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Phone"
         android:inputType="phone"
-        android:hint="Phone" />
+        android:textColorLink="@color/fieldLink" />
 
     <TextView
         android:id="@+id/textViewDescription"
@@ -70,8 +72,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:text="Description"
-        android:textColor="#513167"
-        android:textSize="24sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="21sp"
         android:textStyle="bold" />
 
     <EditText
@@ -79,17 +81,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Description"
         android:inputType="text"
-        android:hint="Description" />
+        android:textColorLink="@color/fieldLink" />
 
     <TextView
         android:id="@+id/textViewCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:textColor="#513167"
         android:text="Category"
-        android:textSize="24sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="21sp"
         android:textStyle="bold" />
 
     <TableRow
@@ -116,23 +119,25 @@
             android:id="@+id/buttonBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Back"
-            android:background="#333333"
-            android:textColor="#ffffff"
             android:layout_margin="5dp"
-            android:textStyle="bold" />
+            android:layout_weight="1"
+            android:background="#333333"
+            android:text="Back"
+            android:textColor="#ffffff"
+            android:textStyle="normal|bold"
+            android:typeface="sans" />
 
         <Button
             android:id="@+id/buttonSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Save"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:background="#333333"
+            android:text="Add"
             android:textColor="#ffffff"
-            android:textStyle="bold" />
+            android:textStyle="normal|bold"
+            android:typeface="sans" />
 
     </LinearLayout>
 
