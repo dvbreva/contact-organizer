@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import Database.DbHelper;
 import Models.Contact;
+import Utils.ToastService;
 
 public class EditContact extends AppCompatActivity {
     private EditText editTextName;
@@ -25,10 +26,14 @@ public class EditContact extends AppCompatActivity {
     String category;
     Spinner sp;
 
+    ToastService toastService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_contact);
+
+        toastService = new ToastService(this);
 
         Intent intent = getIntent();
         final Contact contact = (Contact) intent.getSerializableExtra("contact");
@@ -86,11 +91,13 @@ public class EditContact extends AppCompatActivity {
                     Intent intent1 = new Intent(EditContact.this, MainActivity.class);
                     startActivity(intent1);
 
+                    toastService.RaiseMessage("Contact was edited successfully.");
+
                 }else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                     builder.setCancelable(false);
-                    builder.setMessage("Fail");
-                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    builder.setMessage("Something went wrong..");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();

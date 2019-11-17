@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import Database.DbHelper;
 import Models.Contact;
+import Utils.ToastService;
 
 public class ContactDetail extends AppCompatActivity {
 
@@ -21,11 +22,14 @@ public class ContactDetail extends AppCompatActivity {
     private Button buttonBack;
     private Button buttonEdit;
     private Button buttonDelete;
+    ToastService toastService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_detail);
+
+        toastService = new ToastService(this);
 
         Intent intent1 = getIntent();
         final Contact contact = (Contact) intent1.getSerializableExtra("contact");
@@ -69,11 +73,12 @@ public class ContactDetail extends AppCompatActivity {
                             Intent intent1 = new Intent(ContactDetail.this, MainActivity.class);
                             startActivity(intent1);
 
+                            toastService.RaiseMessage("Contact was deleted successfully.");
                         }else{
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(getBaseContext());
                             builder1.setCancelable(false);
-                            builder1.setMessage("Fail");
-                            builder1.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            builder1.setMessage("Something went wrong..");
+                            builder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.cancel();

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import Database.DbHelper;
 import Models.Contact;
+import Utils.ToastService;
 
 public class AddContact extends AppCompatActivity {
 
@@ -26,10 +27,15 @@ public class AddContact extends AppCompatActivity {
     String category;
     Spinner sp;
 
+    ToastService toastService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
+
+        toastService = new ToastService(this);
 
         this.editTextName = (EditText) findViewById(R.id.editTextName);
         this.editTextPhone = (EditText) findViewById(R.id.editTextPhone);
@@ -73,9 +79,13 @@ public class AddContact extends AppCompatActivity {
                 if (dbHelper.create(contact)){
                     Intent intent1 = new Intent(AddContact.this, MainActivity.class);
                     startActivity(intent1);
-                } else{
+
+                    toastService.RaiseMessage("Contact was added successfully.");
+                }
+                else
+                    {
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                    builder.setMessage("Fail");
+                    builder.setMessage("Something went wrong..");
                     builder.setCancelable(false);
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
