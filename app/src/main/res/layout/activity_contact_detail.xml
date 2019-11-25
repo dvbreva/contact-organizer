@@ -16,7 +16,7 @@
         android:layout_marginTop="15dp"
         android:text="Contact Details"
         android:textAlignment="center"
-        android:textColor="#4287f5"
+        android:textColor="@color/colorPrimary"
         android:textSize="30sp"
         android:textStyle="bold"
         app:fontFamily="sans-serif-medium" />
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:text="Name"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/textField"
         android:textSize="21sp"
         android:textStyle="bold" />
 
@@ -49,7 +49,7 @@
         android:layout_margin="5dp"
         android:paddingTop="10dp"
         android:text="Phone"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/textField"
         android:textSize="21sp"
         android:textStyle="bold" />
 
@@ -66,7 +66,7 @@
         android:layout_margin="5dp"
         android:paddingTop="10dp"
         android:text="Description"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/textField"
         android:textSize="21sp"
         android:textStyle="bold" />
 
@@ -83,7 +83,7 @@
         android:layout_margin="5dp"
         android:paddingTop="10dp"
         android:text="Category"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/textField"
         android:textSize="21sp"
         android:textStyle="bold" />
 
@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="#333333"
+            android:background="@color/textField"
             android:text="Back"
             android:textColor="#ffffff"
             android:typeface="sans" />
@@ -120,7 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="#333333"
+            android:background="@color/textField"
             android:text="Edit"
             android:textColor="#ffffff"
             android:typeface="sans" />
@@ -131,7 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="#333333"
+            android:background="@color/textField"
             android:text="Delete"
             android:textColor="#ffffff"
             android:typeface="sans" />
