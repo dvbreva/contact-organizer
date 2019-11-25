@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:background="#ffffff"
+        android:background="@color/buttonBackground"
         android:text="Add New Contact"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold" />
@@ -31,10 +31,11 @@
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="made by dd"
+        android:text="made by diana"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textStyle="bold" />
+        android:textSize="10sp"
+        android:textStyle="normal" />
 
 
 </LinearLayout>
