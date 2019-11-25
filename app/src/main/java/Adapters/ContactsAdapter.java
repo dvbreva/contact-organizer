@@ -17,13 +17,15 @@ import Models.Contact;
 public class ContactsAdapter extends ArrayAdapter<Contact> {
 
     private Context context;
-    private List<Contact> contacts;
+    private List<Contact> contactsList;
 
+    public ContactsAdapter(Context context,
+                           List<Contact> contactsList)
+    {
+        super(context, R.layout.contact_layout, contactsList);
 
-    public ContactsAdapter(Context context, List<Contact> contacts) {
-        super(context, R.layout.contact_layout, contacts);
         this.context = context;
-        this.contacts = contacts;
+        this.contactsList = contactsList;
     }
 
     @NonNull
@@ -33,17 +35,11 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.contact_layout, parent, false);
 
-        TextView textViewName = (TextView) view.findViewById(R.id.textViewName);
-        textViewName.setText(contacts.get(position).getName());
+        TextView textViewName = view.findViewById(R.id.textViewName);
+        textViewName.setText(contactsList.get(position).getName());
 
-        TextView textViewPhone = (TextView) view.findViewById(R.id.textViewPhone);
-        textViewPhone.setText(contacts.get(position).getPhone());
-
-        TextView textViewDescription = (TextView) view.findViewById(R.id.textViewDescription);
-        textViewDescription.setText(contacts.get(position).getDescription());
-
-        TextView textViewCategory = (TextView) view.findViewById(R.id.textViewCategory);
-        textViewCategory.setText(contacts.get(position).getCategory());
+        TextView textViewPhone = view.findViewById(R.id.textViewPhone);
+        textViewPhone.setText(contactsList.get(position).getPhone());
 
         return view;
     }

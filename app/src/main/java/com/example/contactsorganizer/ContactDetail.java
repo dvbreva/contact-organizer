@@ -22,46 +22,60 @@ public class ContactDetail extends AppCompatActivity {
     private Button buttonBack;
     private Button buttonEdit;
     private Button buttonDelete;
-    ToastService toastService;
+    private ToastService toastService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_detail);
 
-        toastService = new ToastService(this);
+        Intent intent = getIntent();
+        final Contact contact = (Contact) intent.getSerializableExtra("contact");
 
-        Intent intent1 = getIntent();
-        final Contact contact = (Contact) intent1.getSerializableExtra("contact");
-
-
-        this.textViewName = (TextView) findViewById(R.id.textViewName);
+        this.textViewName = findViewById(R.id.textViewName);
         this.textViewName.setText(contact.getName());
 
-        this.textViewPhone = (TextView) findViewById(R.id.textViewPhone);
+        this.textViewPhone = findViewById(R.id.textViewPhone);
         this.textViewPhone.setText(contact.getPhone());
 
-        this.textViewDescription = (TextView) findViewById(R.id.textViewDescription);
+        this.textViewDescription = findViewById(R.id.textViewDescription);
         this.textViewDescription.setText(contact.getDescription());
 
-        this.textViewCategory = (TextView) findViewById(R.id.textViewCategory);
+        this.textViewCategory = findViewById(R.id.textViewCategory);
         this.textViewCategory.setText(contact.getCategory());
 
-        this.buttonBack = (Button) findViewById(R.id.buttonBack);
+        // Toastr
+        toastService = new ToastService(this);
+
+        // Button Back
+        this.buttonBack = findViewById(R.id.buttonBack);
         this.buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(ContactDetail.this, MainActivity.class);
-                startActivity(intent1);
+                Intent intent = new Intent(ContactDetail.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
+        // Button Edit
+        this.buttonEdit = findViewById(R.id.buttonEdit);
+        this.buttonEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ContactDetail.this, EditContact.class);
+                intent.putExtra("contact", contact);
 
-        this.buttonDelete = (Button) findViewById(R.id.buttonDelete);
+                startActivity(intent);
+            }
+        });
+
+        // Button Delete
+        this.buttonDelete = findViewById(R.id.buttonDelete);
         this.buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+
                 builder.setCancelable(false);
                 builder.setTitle("Confirm deletion");
                 builder.setMessage("Are you sure you want to delete this contact?");
@@ -69,12 +83,13 @@ public class ContactDetail extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DbHelper dbHelper = new DbHelper(getBaseContext());
-                        if (dbHelper.delete(contact.getId())){
-                            Intent intent1 = new Intent(ContactDetail.this, MainActivity.class);
-                            startActivity(intent1);
+
+                        if (dbHelper.Delete(contact.getId())) {
+                            Intent intent = new Intent(ContactDetail.this, MainActivity.class);
+                            startActivity(intent);
 
                             toastService.RaiseMessage("Contact was deleted successfully.");
-                        }else{
+                        } else {
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(getBaseContext());
                             builder1.setCancelable(false);
                             builder1.setMessage("Something went wrong..");
@@ -100,18 +115,5 @@ public class ContactDetail extends AppCompatActivity {
                 builder.create().show();
             }
         });
-
-        this.buttonEdit = (Button) findViewById(R.id.buttonEdit);
-        this.buttonEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent1 = new Intent(ContactDetail.this, EditContact.class);
-                intent1.putExtra("contact", contact);
-
-                startActivity(intent1);
-            }
-        });
-
-
     }
 }

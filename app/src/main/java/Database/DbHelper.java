@@ -44,68 +44,46 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public List<Contact> findAll(){
-        try {
-            List<Contact> contacts =  new ArrayList<Contact>();
+    public List<Contact> GetAll(){
+        try
+        {
+            List<Contact> contactsList =  new ArrayList<Contact>();
             SQLiteDatabase sqLiteDatabase = getWritableDatabase();
             Cursor cursor = sqLiteDatabase.rawQuery("select * from " + tableName,null);
-            if(cursor.moveToFirst()){
-                do {
-                    Contact contact = new Contact();
-                    contact.setId(cursor.getInt(0));
-                    contact.setName(cursor.getString(1));
-                    contact.setPhone(cursor.getString(2));
-                    contact.setDescription(cursor.getString(3));
-                    contact.setCategory(cursor.getString(4));
-                    contacts.add(contact);
-                }while(cursor.moveToNext());
+
+            if(cursor.moveToFirst())
+            {
+                do
+                    {
+                        Contact contact = new Contact();
+
+                        contact.setId(cursor.getInt(0));
+                        contact.setName(cursor.getString(1));
+                        contact.setPhone(cursor.getString(2));
+                        contact.setDescription(cursor.getString(3));
+                        contact.setCategory(cursor.getString(4));
+                        contactsList.add(contact);
+                    }
+                    while(cursor.moveToNext());
             }
+
             sqLiteDatabase.close();
-            return contacts;
+            return contactsList;
         }
-        catch (Exception e){
+        catch (Exception e)
+        {
             return null;
         }
     }
 
-    public boolean create (Contact contact){
-        try{
-            SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(nameColumn,contact.getName().toUpperCase());
-            contentValues.put(phoneColumn, contact.getPhone());
-            contentValues.put(descriptionColumn, contact.getDescription());
-            contentValues.put(categoryColumn,contact.getCategory());
-            long rows = sqLiteDatabase.insert(tableName,null,contentValues);
-
-
-            sqLiteDatabase.close();
-            return rows>0;
-        }
-        catch (Exception e){
-            return false;
-        }
-    }
-
-    public boolean delete (int id){
-        try{
-            SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-            int rows = sqLiteDatabase.delete(tableName, idColumn + " =?" , new String[]{String.valueOf(id)});
-
-            sqLiteDatabase.close();
-            return rows>0;
-        }
-        catch (Exception e){
-            return false;
-        }
-    }
-
-    public Contact find (int id){
+    public Contact GetById (int id){
         try{
             SQLiteDatabase sqLiteDatabase = getWritableDatabase();
             Cursor cursor = sqLiteDatabase.rawQuery("select * from " + tableName + " where " + idColumn + " = ?" , new String[]{String.valueOf(id)});
             Contact contact = null;
-            if (cursor.moveToFirst()){
+
+            if (cursor.moveToFirst())
+            {
                 contact = new Contact();
                 contact.setId(cursor.getInt(0));
                 contact.setName(cursor.getString(1));
@@ -117,25 +95,67 @@ public class DbHelper extends SQLiteOpenHelper {
             sqLiteDatabase.close();
             return contact;
         }
-        catch (Exception e){
+        catch (Exception e)
+        {
             return null;
         }
     }
 
-    public boolean update(Contact contact){
-        try{
+    public boolean Create (Contact contact){
+        try
+        {
             SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(nameColumn,contact.getName().toUpperCase());
+            contentValues.put(phoneColumn, contact.getPhone());
+            contentValues.put(descriptionColumn, contact.getDescription());
+            contentValues.put(categoryColumn,contact.getCategory());
+
+            long rows = sqLiteDatabase.insert(tableName,null,contentValues);
+
+            sqLiteDatabase.close();
+            return rows > 0;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
+
+    public boolean Delete (int id){
+        try
+        {
+            SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+            int rows = sqLiteDatabase.delete(tableName, idColumn + " =?" , new String[]{String.valueOf(id)});
+
+            sqLiteDatabase.close();
+            return rows > 0;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
+
+    public boolean Update(Contact contact){
+        try
+        {
+            SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+
             ContentValues contentValues = new ContentValues();
             contentValues.put(nameColumn, contact.getName().toUpperCase());
             contentValues.put(phoneColumn, contact.getPhone());
             contentValues.put(descriptionColumn, contact.getDescription());
             contentValues.put(categoryColumn, contact.getCategory());
+
             int rows = sqLiteDatabase.update(tableName, contentValues, idColumn + " = ?", new String[] {String.valueOf(contact.getId())});
 
             sqLiteDatabase.close();
-            return rows>0;
+            return rows > 0;
         }
-        catch (Exception ex){
+        catch (Exception ex)
+        {
             return false;
         }
     }

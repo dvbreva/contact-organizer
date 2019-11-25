@@ -23,29 +23,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.buttonAdd = (Button) findViewById(R.id.buttonAdd);
+        final DbHelper dbHelper = new DbHelper(this);
 
+        // Button Add
+        this.buttonAdd = findViewById(R.id.buttonAdd);
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(MainActivity.this,AddContact.class);
-                startActivity(intent1);
-
+                Intent intent = new Intent(MainActivity.this, AddContact.class);
+                startActivity(intent);
             }
         });
 
-        final DbHelper dbHelper = new DbHelper(this);
-        this.listViewContacts = (ListView) findViewById(R.id.listViewContacts);
-        this.listViewContacts.setAdapter(new ContactsAdapter(this,dbHelper.findAll()));
+        // All Contacts List View
+        this.listViewContacts = findViewById(R.id.listViewContacts);
+        this.listViewContacts.setAdapter(new ContactsAdapter(this, dbHelper.GetAll()));
 
         this.listViewContacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Contact contact = dbHelper.findAll().get(position);
-                Intent intent1 = new Intent(MainActivity.this,ContactDetail.class);
-                intent1.putExtra("contact",contact);
-                startActivity(intent1);
+                Contact contact = dbHelper.GetAll().get(position);
+                Intent intent  = new Intent(MainActivity.this, ContactDetail.class);
+                intent.putExtra("contact", contact);
+                startActivity(intent);
             }
         });
     }

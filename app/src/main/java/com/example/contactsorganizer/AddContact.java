@@ -24,67 +24,73 @@ public class AddContact extends AppCompatActivity {
     private EditText editTextName;
     private EditText editTextPhone;
     private EditText editTextDescription;
-    String category;
-    Spinner sp;
-
-    ToastService toastService;
+    private String category;
+    private Spinner spinner;
+    private ToastService toastService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
 
-        toastService = new ToastService(this);
+        // Fields
+        this.editTextName = findViewById(R.id.editTextName);
+        this.editTextPhone = findViewById(R.id.editTextPhone);
+        this.editTextDescription = findViewById(R.id.editTextDescription);
 
-        this.editTextName = (EditText) findViewById(R.id.editTextName);
-        this.editTextPhone = (EditText) findViewById(R.id.editTextPhone);
-        this.editTextDescription = (EditText) findViewById(R.id.editTextDescription);
-
-        ArrayList<String> categoryList =  new ArrayList<String>();
+        // Categories
+        ArrayList<String> categoryList = new ArrayList<String>();
         categoryList.add("Work");
         categoryList.add("Family");
         categoryList.add("Friends");
         categoryList.add("Colleagues");
 
+        // Spinner
+        spinner = findViewById(R.id.spinner_category);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, R.id.spinnerText, categoryList);
+        spinner.setAdapter(adapter);
 
-        sp = (Spinner) findViewById(R.id.spinner_category);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout,R.id.spinnerText, categoryList);
-        sp.setAdapter(adapter);
+        // Toast
+        toastService = new ToastService(this);
 
+        // Button Back
+        this.buttonBack = findViewById(R.id.buttonBack);
 
-        this.buttonBack = (Button) findViewById(R.id.buttonBack);
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(AddContact.this,MainActivity.class);
-                startActivity(intent1);
+                Intent intent = new Intent(AddContact.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
-        this.buttonSave = (Button) findViewById(R.id.buttonSave);
+        // Button Save
+        this.buttonSave = findViewById(R.id.buttonSave);
+
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Initialize dependencies
                 DbHelper dbHelper = new DbHelper(getBaseContext());
                 Contact contact = new Contact();
+
+                // Set properties
                 contact.setName(editTextName.getText().toString());
                 contact.setPhone(editTextPhone.getText().toString());
                 contact.setDescription(editTextDescription.getText().toString());
 
-                // set the value from the spinner
-                category= sp.getSelectedItem().toString();
+                // Set the value from the spinner
+                category = spinner.getSelectedItem().toString();
                 contact.setCategory(category);
 
-                if (dbHelper.create(contact)){
-                    Intent intent1 = new Intent(AddContact.this, MainActivity.class);
-                    startActivity(intent1);
+                if (dbHelper.Create(contact)) {
+                    Intent intent = new Intent(AddContact.this, MainActivity.class);
+                    startActivity(intent);
 
                     toastService.RaiseMessage("Contact was added successfully.");
-                }
-                else
-                    {
+                } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+
                     builder.setMessage("Something went wrong..");
                     builder.setCancelable(false);
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -96,9 +102,7 @@ public class AddContact extends AppCompatActivity {
 
                     builder.create().show();
                 }
-
             }
         });
-
     }
 }
